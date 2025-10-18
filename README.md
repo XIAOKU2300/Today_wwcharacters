@@ -9,6 +9,8 @@
 💝 **每日一言** - 每次附带优美名言佳句  
 ⏳ **智能冷却** - 3秒个人冷却时间  
 👥 **群聊友好** - 自动艾特，体验流畅  
+使用展示<img width="512" height="871" alt="QQ_1760799396237" src="https://github.com/user-attachments/assets/c32efbde-84ed-48b9-a97e-f53826c575d5" />
+
 
 ## 安装方法
 
