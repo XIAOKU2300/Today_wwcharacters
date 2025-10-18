@@ -23,9 +23,11 @@
 ## 素材配置
 
 1. **下载素材**  
-   个人网盘：飞牛分享【custom_role_pile.7z】，点击链接下载文件，App打开可转存到NAS：https://s.fnnas.net/s/72f99080f59d42d494，密码：daily-waifu
+   个人网盘：飞牛分享【custom_role_pile.7z】，点击链接下载文件
+   https://s.fnnas.net/s/72f99080f59d42d494
+   密码：daily-waifu
    
-2. **目录结构**  
+3. **目录结构**  
    解压后确保目录结构如下：
    ```
    plugins/daily-waifu/custom_role_pile/
@@ -39,7 +41,7 @@
    └── ...
    ```
 
-3. **文件命名**  
+4. **文件命名**  
    - 文件夹编号对应角色
    - 文件格式：`角色名_编号.jpg`
 
