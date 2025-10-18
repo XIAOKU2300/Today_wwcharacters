@@ -1,4 +1,4 @@
-# 🌸 今日老婆插件 (Daily Waifu)
+<img width="846" height="381" alt="image" src="https://github.com/user-attachments/assets/b0b74f1e-6ff6-4f51-8e83-3ad08b3af238" /># 🌸 今日老婆插件 (Daily Waifu)
 
 > 适用于 Trss-Yunzai 的趣味角色扮演插件  
 > 每天为你随机分配专属二次元角色，附赠优美每日一言
@@ -31,10 +31,10 @@ npm install node-fetch
 *使用脚本安装无需执行此步*
 
 ### 3. 素材下载
-**下载地址**：飞牛分享【custom_role_pile.7z】  
+**下载地址**：个人网盘【custom_role_pile.7z】  
 **链接**：https://s.fnnas.net/s/72f99080f59d42d494  
 **密码**：`daily-waifu`
-
+**其他网盘**: 123网盘 链接：https://www.123865.com/s/7BPvTd-V85W?pwd=qybt#  提取码：qybt
 ---
 
 ## 📁 目录结构
