@@ -48,9 +48,7 @@ Yunzai-Bot/plugins/daily-waifu/custom_role_pile/
 
 ### 3. 重启机器人
 ```bash
-# 在 Yunzai-Bot 目录下执行
-npm run stop
-npm run start
+给你的机器人发送#重启 即可
 ```
 
 ---
