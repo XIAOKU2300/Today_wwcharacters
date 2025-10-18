@@ -1,4 +1,4 @@
-<img width="846" height="381" alt="image" src="https://github.com/user-attachments/assets/b0b74f1e-6ff6-4f51-8e83-3ad08b3af238" /># 🌸 今日老婆插件 (Daily Waifu)
+# 🌸 今日老婆插件 (Daily Waifu)
 
 > 适用于 Trss-Yunzai 的趣味角色扮演插件  
 > 每天为你随机分配专属二次元角色，附赠优美每日一言
