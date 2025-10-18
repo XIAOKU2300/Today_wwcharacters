@@ -17,13 +17,14 @@
    ```bash
    npm install node-fetch
    ```
+   使用脚本安装无需执行此步
 3. 下载素材包并配置
 
 ## 素材配置
 
 1. **下载素材**  
-   从网盘下载完整的角色素材包
-
+   个人网盘：飞牛分享【custom_role_pile.7z】，点击链接下载文件，App打开可转存到NAS：https://s.fnnas.net/s/72f99080f59d42d494，密码：daily-waifu
+   
 2. **目录结构**  
    解压后确保目录结构如下：
    ```
