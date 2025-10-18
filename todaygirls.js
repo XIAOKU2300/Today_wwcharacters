@@ -12,9 +12,10 @@ const pluginDir = path.dirname(fileURLToPath(import.meta.url));
 const wifeResourceDir = path.join(pluginDir, 'custom_role_pile');
 
 // -------------------------------
-// 缓存每日老婆 & 请求冷却（改为群聊级别）
+// 缓存每日老婆 & 请求冷却（改为用户级别）
 // -------------------------------
-const todayWifeCache = {};
+const userWifeCache = {}; // 按用户ID缓存
+const userCDCache = {}; // 用户级别的CD缓存
 
 export class todayGirl extends plugin {
   constructor() {
@@ -30,23 +31,20 @@ export class todayGirl extends plugin {
   }
 
   async sendTodayWife(e) {
+    const userId = e.user_id;
     const now = Date.now();
     const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
     
     // -------------------------------
-    // 确定缓存键：群聊用群号，私聊用用户ID
+    // 3秒冷却（用户级别）
     // -------------------------------
-    const cacheKey = e.isGroup ? e.group_id : e.user_id;
-
-    // -------------------------------
-    // 3秒冷却（群聊级别或私聊级别）
-    // -------------------------------
-    if (todayWifeCache[cacheKey]?.lastTime && now - todayWifeCache[cacheKey].lastTime < 3000) {
+    if (userCDCache[userId] && now - userCDCache[userId] < 3000) {
       await e.reply('等等啦，别太快重复请求~ ⏳');
       return true;
     }
-
-    todayWifeCache[cacheKey] = todayWifeCache[cacheKey] || {};
+    
+    // 更新CD时间
+    userCDCache[userId] = now;
 
     // -------------------------------
     // 检查素材目录
@@ -87,7 +85,7 @@ export class todayGirl extends plugin {
     // -------------------------------
     // 如果缓存日期不是今天，重新分配角色
     // -------------------------------
-    if (todayWifeCache[cacheKey].date !== today) {
+    if (!userWifeCache[userId] || userWifeCache[userId].date !== today) {
       // 随机选择一个角色文件夹
       const randomFolderIndex = Math.floor(Math.random() * roleFolders.length);
       const selectedFolder = roleFolders[randomFolderIndex];
@@ -113,8 +111,8 @@ export class todayGirl extends plugin {
       // 从文件名中提取角色名称（去掉_后面的部分）
       const roleName = this.extractRoleName(imageFiles[0]);
       
-      // 初始化缓存
-      todayWifeCache[cacheKey] = {
+      // 初始化用户缓存
+      userWifeCache[userId] = {
         date: today,
         roleFolder: selectedFolder,
         roleName: roleName,
@@ -126,13 +124,13 @@ export class todayGirl extends plugin {
     // -------------------------------
     // 选择同一角色目录下的不同照片
     // -------------------------------
-    const cache = todayWifeCache[cacheKey];
-    let availableImages = cache.allImages.filter(img => !cache.sentImages.includes(img));
+    const userCache = userWifeCache[userId];
+    let availableImages = userCache.allImages.filter(img => !userCache.sentImages.includes(img));
     
     // 如果所有图片都已发送过，重置已发送列表
     if (availableImages.length === 0) {
-      availableImages = cache.allImages;
-      cache.sentImages = [];
+      availableImages = userCache.allImages;
+      userCache.sentImages = [];
     }
     
     // 随机选择一张未发送的图片
@@ -140,8 +138,7 @@ export class todayGirl extends plugin {
     const selectedImage = availableImages[randomImageIndex];
     
     // 记录已发送的图片
-    cache.sentImages.push(selectedImage);
-    cache.lastTime = now;
+    userCache.sentImages.push(selectedImage);
 
     // -------------------------------
     // 获取每日一言
@@ -159,14 +156,14 @@ export class todayGirl extends plugin {
     // -------------------------------
     // 准备消息（添加艾特功能）
     // -------------------------------
-    const imagePath = path.join(wifeResourceDir, cache.roleFolder, selectedImage);
+    const imagePath = path.join(wifeResourceDir, userCache.roleFolder, selectedImage);
 
     // 构建消息数组，群聊时先艾特用户
     const msg = [];
     
     if (e.isGroup) {
       // 群聊：先艾特用户
-      msg.push(segment.at(e.user_id));
+      msg.push(segment.at(userId));
       msg.push('\n');
     } else {
       // 私聊：友好称呼
@@ -176,7 +173,7 @@ export class todayGirl extends plugin {
     // 添加主要内容
     msg.push(
       `🌸 今日缘分已为你准备妥当！\n`,
-      `✨ 今日老婆：${cache.roleName}\n`,
+      `✨ 今日老婆：${userCache.roleName}\n`,
       segment.image(imagePath)
     );
 
